@@ -1,0 +1,254 @@
+*eightheader.txt*        For Vim version 7.4        Last change: 2014. 04. 24.
+
+                                 EIGHTHEADER~
+             Easily format and decorate (fold)headers, toc, etc.
+
+======================= BimbaLaszlo(.co.nr|gmail.com) ========================
+
+    Copyright: (c) 2014 by BimbaLaszlo
+              The VIM LICENSE applies to eightheader.vim and eightheader.txt
+              (see |copyright|) except use 'EightHeader' instead of 'Vim'
+              NO WARRANTY, EXPRESS OR IMPLIED.  USE AT-YOUR-OWN-RISK.
+
+CONTENT~
+
+    Using EightHeader............................................|EightHeader|
+      Arguments.........................................|EightHeaderArguments|
+      Variables..............................................|EightHeaderVars|
+      Options.............................................|EightHeaderOptions|
+    Custom foldtext with EightHeaderFolds...................|EightHeaderFolds|
+    Calling it from script...................................|EightHeaderCall|
+    Examples.............................................|EightHeaderExamples|
+      Simple headers....................................|EightHeaderExHeaders|
+      Update last change.................................|EightHeaderExUpdate|
+      Write vimhelp header..............................|EightHeaderExVimhelp|
+      Formating the table of contents.......................|EightHeaderExToc|
+      Markdown header..................................|EightHeaderExMarkdown|
+
+==============================================================================
+
+USING EIGHTHEADER                                                *EightHeader*
+
+    To use |EightHeader| just move the cursor to the line which you want to
+    modify (hereinafter {line}), then call it:
+
+      EightHeader( {length}, {align}, {oneline}, {pattern}, {marker}, {str} )
+
+      {length}   Length of the header.
+      {align}    Alignment of text.
+      {oneline}  {line} and {marker} in one line, {pattern} in another.
+      {pattern}  Pattern to fill with.
+      {marker}   Extra content after patternRightEnd.
+      {str}      Replace the content of {line} with this.
+
+    See |EightHeaderArguments| for detailed list.
+
+    It handles the commented lines if the g:EightHeader_comment and
+    g:EightHeader_uncomment set (see |EightHeaderOptions|).
+
+    An example with {oneline}: >
+
+      call EightHeader( 78, 'center', 1, ['l ', 'pat', ' r'], ' m',
+      \ '\=" ".s:str." "' )
+
+      l patpatpatpatpatpatpatpat TEXT IN THE LINE patpatpatpatpatpatpatpat r m
+<
+    ... and whitout it: >
+
+      call EightHeader( 78, 'center', 0, ['l ', 'pat', ' r'], ' m', '' )
+
+                                 TEXT IN THE LINE                            m
+      l patpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpa r
+<
+    You can do |mapping|s or |command|s to your favourite header functions to
+    simplify the usage. For example: >
+
+      noremap  <leader>1  call EightHeader(...)
+      command  DoHeader   call EightHeader(...)
+<
+  ARGUMENTS                                             *EightHeaderArguments*
+
+    {length}
+    Possible values: Number
+
+      The length of the whole header including the indenting. If you want to
+      do a fixed width header (independent from the indenting) then use
+      negative value.
+
+    {align}
+    Possible values: 'left', 'right', 'center'
+
+      The alignment of the text.
+
+    {oneline}
+    Possible values: 0, 1
+
+      If 1, then all parts of the header will be in one line, otherwise the
+      text and {marker} will be on the same line, the others will be in
+      another.
+
+    {pattern}
+    Possible values: String, or List of 3 Strings
+
+      The pattern that fills the gap between elements. If it's a String, then
+      there's nothing special, if a List, in that case the first element will
+      be the left end of the header, the second element is the pattern, the
+      third element is the right end before {marker}.
+
+    {marker}
+    Possible values: String
+
+      The most right end of the header if it's a {oneline}, in other case it
+      will be on the right end of the same line where the text is on.
+
+    {str}
+    Possible values: String
+
+      Replacing the text in the {line}.
+
+  VARIABLES                                                  *EightHeaderVars*
+
+    Expect of {oneline} the arguments can be a string that begins with '\=',
+    the rest of the string will be evaulated. You can use some variables
+    inside of these expressions:
+
+      s:str        Uncommented and blank-stripped {line}.
+      s:strLen     The |strdisplaywidth()| of s:str
+      s:indent     The indenting of s:str.
+      s:indentLen  The |strdisplaywidth()| of s:str
+
+    For example you can set marker based on the length of indenting: >
+
+      call EightHeader( &tw, 'left', 0, '_', '\=s:indentLen/&sw', '' )
+<
+  OPTIONS                                                 *EightHeaderOptions*
+
+    g:EightHeader_comment
+    g:EightHeader_uncomment
+
+      Functions that (un)comments the current line. For example you can use
+      the NERDComment(): >
+
+      let g:EightHeader_comment   = 'call NERDComment( "n", "comment" )'
+      let g:EightHeader_uncomment = 'call NERDComment( "n", "uncomment" )'
+<
+      If these are not set, then the script cannot handle comments.
+
+==============================================================================
+
+CUSTOM FOLDTEXT WITH EIGHTHEADERFOLDS                       *EightHeaderFolds*
+
+    If you don't like the default 'foldtext' you can customize it by setting
+    to EightHeaderFolds().
+
+      EightHeaderFolds( {length}, {align}, {pattern}, {marker}, {str} )
+
+    The arguments are the same as |EightHeader| has. There are some additional
+    variables you can use:
+
+      s:fullwidth   Inner width of the current window.
+      s:foldlines   Number of lines in the fold.
+
+    If you using |sign|s (for example Syntastic plugin does) then you should
+    decrease the s:fullwidth with 2, because the script does not know that the
+    signs are visible or not.
+
+    For example the closed folds looks like this by default: >
+
+      +-- 45 lines: Fold level one
+      +--- 67 lines: Fold level two
+<
+    If you would like to change it to this kind: >
+
+      Fold level one................45 lines
+        Fold level two..............67 lines
+<
+    ... then you can use this function: >
+
+      let &foldtext = "EightHeaderFolds( '\\=s:fullwidth-2', 'left',
+      \ [ repeat( '  ', v:foldlevel - 1 ), '.', '' ],
+      \ '\\= s:foldlines . \" lines\"', '' )"
+<
+==============================================================================
+
+CALLING IT FROM SCRIPT                                       *EightHeaderCall*
+
+    The EightHeaderCall() formats a string.
+
+      EightHeaderCall( {line}, {length}, {align}, {pattern}, {marker}, {str} )
+
+    The arguments are the same as |EightHeader| has, the {line} is the
+    string that you want to format. The function returns the formated string
+    or -1 on error. It does not handling comment operators!
+
+==============================================================================
+
+EXAMPLES                                                 *EightHeaderExamples*
+
+  SIMPLE HEADERS                                         *EightHeaderExHeader*
+
+    Basic header examples: >
+
+      call EightHeader( &tw, 'center', 0, '=', ' {'.'{{1', '' )
+      call EightHeader( 0-(&tw/2), 'left', 1, ['__', '_', ''], '',
+      \ '\=" ".s:str." "' )
+<
+  UPDATE LAST CHANGE                                     *EightHeaderExUpdate*
+
+    To keep the date of last change fresh in the header of file: >
+
+      function MyHeader()
+        call EightHeader( &tw, 'center', 1,
+        \ ['', '=', strftime(' %Y.%m.%d %H:%M ==')],
+        \ '', ' BY USER ' )
+      endfunction
+
+      autocmd  BufWritePre  *  0 /= BY USER =/ call MyHeader()
+<
+  WRITE VIMHELP HEADER                                  *EightHeaderExVimhelp*
+
+    Automatically write filename, version and last change when saving vimhelp
+    file: >
+
+      call EightHeader( 78, 'center', 1,
+      \ ['*'.expand('%').'*', ' ', 'Last change: '.strftime('%Y. %m. %d.')],
+      \ '', 'For Vim version 7.4' )
+<
+    ... you can do an autocommand to always update the time: >
+
+      autocmd  BufWritePre  *  if &filetype == 'help'    |
+      \                          0 call EightHeader(...) |
+      \                        endif
+<
+  FORMATING THE TABLE OF CONTENTS                           *EightHeaderExToc*
+
+    For exmaple this: >
+
+      Options;options
+      Default mappings;maps
+        Launch nuclear strike;apocalypse
+<
+    ... to this: >
+
+      Options........................................................|options|
+      Default mappings..................................................|maps|
+        Launch nuclear strike.....................................|apocalypse|
+<
+    Visually select the lines, than: >
+
+      call EightHeader( 78, 'left', 1, '.',
+      \ '\="|".matchstr(s:str, ";\\@<=.*")."|"',
+      \ '\=matchstr(s:str, ".*;\\@=")' )
+<
+  MARKDOWN HEADER                                      *EightHeaderExMarkdown*
+
+    To underline a markdown header, for exmaple: >
+
+      Hello World!
+      ============
+<
+    Use this: >
+
+      call EightHeader( '\=0-s:strLen', 'left', 0, '=', '', '' )
+<
+vim:filetype=help

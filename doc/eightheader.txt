@@ -1,9 +1,9 @@
 *eightheader.txt*        For Vim version 7.4        Last change: 2014. 04. 24.
 
                                  EIGHTHEADER~
-             Easily format and decorate (fold)headers, toc, etc.
+        Easily format and decorate (fold)headers, foldtext, toc, etc.
 
-======================= BimbaLaszlo(.co.nr|gmail.com) ========================
+============= BimbaLaszlo(.co.nr|gmail.com) ============== 2014.04.24 18:00 ==
 
     Copyright: (c) 2014 by BimbaLaszlo
               The VIM LICENSE applies to eightheader.vim and eightheader.txt
@@ -29,6 +29,11 @@ CONTENT~
 
 USING EIGHTHEADER                                                *EightHeader*
 
+    The script needs 'nocompatible' mode, so put this on the beginnig of your
+    .vimrc: >
+
+      set nocompatible
+<
     To use |EightHeader| just move the cursor to the line which you want to
     modify (hereinafter {line}), then call it:
 
@@ -63,7 +68,7 @@ USING EIGHTHEADER                                                *EightHeader*
     You can do |mapping|s or |command|s to your favourite header functions to
     simplify the usage. For example: >
 
-      noremap  <leader>1  call EightHeader(...)
+      noremap  <leader>1  :silent call EightHeader(...)<CR>
       command  DoHeader   call EightHeader(...)
 <
   ARGUMENTS                                             *EightHeaderArguments*
@@ -192,6 +197,15 @@ EXAMPLES                                                 *EightHeaderExamples*
       call EightHeader( &tw, 'center', 0, '=', ' {'.'{{1', '' )
       call EightHeader( 0-(&tw/2), 'left', 1, ['__', '_', ''], '',
       \ '\=" ".s:str." "' )
+<
+    If you would like to use the same |mapping| to create headers for
+    different filetypes then you can use some kind of this: >
+
+      autocmd  FileType  help  noremap  <leader>1
+      \ :call EightHeader(...)<CR>
+
+      autocmd  FileType  markdown  noremap  <leader>1
+      \ :call EightHeader(...)<CR>
 <
   UPDATE LAST CHANGE                                     *EightHeaderExUpdate*
 

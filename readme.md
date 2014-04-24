@@ -1,6 +1,6 @@
 EIGHTHEADER
 ===========
-Easily format and decorate (fold)headers, toc, etc.
+Easily format and decorate (fold)headers, foldtext, toc, etc.
 
 To use EightHeader just move the cursor to the line which you want to modify (hereinafter `line`), then call it:
 ```

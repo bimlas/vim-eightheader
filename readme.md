@@ -16,7 +16,7 @@ str      Replace the content of line with this.
 
 An example with `oneline`:
 ```
-call EightHeader( 78, "center", 1, ["l ", "pat", " r"], " m", "\=' '.s:str.' '" )
+call EightHeader( 78, "center", 1, ["l ", "pat", " r"], " m", "\\=' '.s:str.' '" )
 
 l patpatpatpatpatpatpatpat TEXT IN THE LINE patpatpatpatpatpatpatpat r m
 ```
@@ -44,4 +44,20 @@ Fold level one................45 lines
 ... then you can use this function:
 ```
 let &foldtext = "EightHeaderFolds( '\\=s:fullwidth-2', 'left', [ repeat( '  ', v:foldlevel - 1 ), '.', '' ], '\\= s:foldlines . \" lines\"', '' )"
+```
+An alternative usage for example formating a vimhelp table of contents:
+```
+Options;options
+Default mappings;maps
+  Launch nuclear strike;apocalypse
+```
+... to this:
+```
+Options........................................................|options|
+Default mappings..................................................|maps|
+  Launch nuclear strike.....................................|apocalypse|
+```
+Visually select the lines, than:
+```
+call EightHeader( 78, "left", 1, ".", "\\='|'.matchstr(s:str, ';\\@<=.*').'|'", "\\=matchstr(s:str, '.*;\\@=')" )
 ```

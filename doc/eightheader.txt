@@ -1,9 +1,9 @@
-*eightheader.txt*        For Vim version 7.4        Last change: 2014. 04. 24.
+*eightheader.txt*        For Vim version 7.4        Last change: 2014. 04. 25.
 
                                  EIGHTHEADER~
-        Easily format and decorate (fold)headers, foldtext, toc, etc.
+           Easily create custom (fold)headers, foldtext, toc, etc.
 
-============= BimbaLaszlo(.co.nr|gmail.com) ============== 2014.04.24 18:00 ==
+======================= BimbaLaszlo(.co.nr|gmail.com) ========================
 
     Copyright: (c) 2014 by BimbaLaszlo
               The VIM LICENSE applies to eightheader.vim and eightheader.txt
@@ -68,9 +68,11 @@ USING EIGHTHEADER                                                *EightHeader*
     You can do |mapping|s or |command|s to your favourite header functions to
     simplify the usage. For example: >
 
-      noremap  <leader>1  :silent call EightHeader(...)<CR>
+      noremap  <leader>1  :silent call EightHeader(...)<CR><CR>
       command  DoHeader   call EightHeader(...)
 <
+    The extra <CR> is avoiding 'Press ENTER' prompt.
+
   ARGUMENTS                                             *EightHeaderArguments*
 
     {length}
@@ -201,11 +203,11 @@ EXAMPLES                                                 *EightHeaderExamples*
     If you would like to use the same |mapping| to create headers for
     different filetypes then you can use some kind of this: >
 
-      autocmd  FileType  help  noremap  <leader>1
-      \ :call EightHeader(...)<CR>
+      autocmd  FileType  help  noremap <buffer>  <leader>1
+      \ :call EightHeader(...)<CR><CR>
 
-      autocmd  FileType  markdown  noremap  <leader>1
-      \ :call EightHeader(...)<CR>
+      autocmd  FileType  markdown  noremap <buffer>  <leader>1
+      \ :call EightHeader(...)<CR><CR>
 <
   UPDATE LAST CHANGE                                     *EightHeaderExUpdate*
 

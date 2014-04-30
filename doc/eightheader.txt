@@ -1,9 +1,9 @@
-*eightheader.txt*        For Vim version 7.4        Last change: 2014. 04. 25.
+*eightheader.txt*        For Vim version 7.4        Last change: 2014. 04. 30.
 
                                  EIGHTHEADER~
            Easily create custom (fold)headers, foldtext, toc, etc.
 
-============= BimbaLaszlo(.co.nr|gmail.com) ============== 2014.04.30 13:54 ==
+======================= BimbaLaszlo(.co.nr|gmail.com) ========================
 
     Copyright: (c) 2014 by BimbaLaszlo
               The VIM LICENSE applies to eightheader.vim and eightheader.txt
@@ -141,6 +141,13 @@ USING EIGHTHEADER                                                *EightHeader*
       let g:EightHeader_uncomment = 'call NERDComment( "n", "uncomment" )'
 <
       If these are not set, then the script cannot handle comments.
+
+      Most of the commenter plugins can't uncomment only one line in a
+      multiline comment, thus the using of |EightHeader| is recommented only
+      on single line comments.
+
+      (if you know a plugin which can handle comments line-by-line, please
+      send me the name of it)
 
 ==============================================================================
 

@@ -3,7 +3,7 @@
                                  EIGHTHEADER~
            Easily create custom (fold)headers, foldtext, toc, etc.
 
-======================= BimbaLaszlo(.co.nr|gmail.com) ========================
+============= BimbaLaszlo(.co.nr|gmail.com) ============== 2014.04.30 13:54 ==
 
     Copyright: (c) 2014 by BimbaLaszlo
               The VIM LICENSE applies to eightheader.vim and eightheader.txt
@@ -133,8 +133,9 @@ USING EIGHTHEADER                                                *EightHeader*
     g:EightHeader_comment
     g:EightHeader_uncomment
 
-      Functions that (un)comments the current line. For example you can use
-      the NERDComment(): >
+      Functions that (un)comments the current line. If the line is commented,
+      then the script will uncomment, format and recomment it.
+      For example you can use the NERDComment(): >
 
       let g:EightHeader_comment   = 'call NERDComment( "n", "comment" )'
       let g:EightHeader_uncomment = 'call NERDComment( "n", "uncomment" )'
@@ -155,6 +156,8 @@ CUSTOM FOLDTEXT WITH EIGHTHEADERFOLDS                       *EightHeaderFolds*
 
       s:fullwidth   Inner width of the current window.
       s:foldlines   Number of lines in the fold.
+
+    For builtin variables see |fold-foldtext|.
 
     If you using |sign|s (for example Syntastic plugin does) then you should
     decrease the s:fullwidth with 2, because the script does not know that the

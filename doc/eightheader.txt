@@ -1,7 +1,10 @@
-*eightheader.txt*        For Vim version 7.4        Last change: 2014. 04. 30.
+*eightheader.txt*        For Vim version 7.4        Last change: 2014. 05. 15.
 
                                  EIGHTHEADER~
            Easily create custom (fold)headers, foldtext, toc, etc.
+
+                         Please rate if you using it:
+             http://www.vim.org/scripts/script.php?script_id=4930
 
 ======================= BimbaLaszlo(.co.nr|gmail.com) ========================
 

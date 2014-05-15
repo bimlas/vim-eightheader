@@ -2,6 +2,9 @@ EIGHTHEADER
 ===========
 Easily create custom (fold)headers, foldtext, toc, etc.
 
+**Please rate if you using it:**
+http://www.vim.org/scripts/script.php?script_id=4930
+
 To use EightHeader just move the cursor to the line which you want to modify (hereinafter `line`), then call it:
 ```
 EightHeader( length, align, oneline, pattern, marker, str )

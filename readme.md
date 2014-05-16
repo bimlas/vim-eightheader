@@ -76,7 +76,7 @@ and unzip the subdirectories into `~/.vim`.
 
 ... into `~/.vim/bundle` (or to your specific pathogen directory).
 
-**[Vundle](https://github.com/gmarik/Vundle.vim)**
+**[Vundle](https://github.com/gmarik/Vundle.vim)**:
 
 Add these lines to your `.vimrc` after `call vundle#rc()`:
 ```

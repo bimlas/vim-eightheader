@@ -1,9 +1,8 @@
-EIGHTHEADER
+EightHeader
 ===========
 Easily create custom (fold)headers, foldtext, toc, etc.
 
-**Please rate if you using it:**
-http://www.vim.org/scripts/script.php?script_id=4930
+**Please rate if you using it:** http://www.vim.org/scripts/script.php?script_id=4930
 
 To use EightHeader just move the cursor to the line which you want to modify (hereinafter `line`), then call it:
 ```
@@ -64,3 +63,23 @@ Visually select the lines, than:
 ```
 call EightHeader( 78, "left", 1, ".", "\\='|'.matchstr(s:str, ';\\@<=.*').'|'", "\\=matchstr(s:str, '.*;\\@=')" )
 ```
+
+Install
+-------
+
+**Manually:**
+
+[Download](https://github.com/BimbaLaszlo/vim-eightheader/archive/master.zip)
+and unzip the subdirectories into `~/.vim`.
+
+**[Pathogen](https://github.com/tpope/vim-pathogen):**
+
+... into `~/.vim/bundle` (or to your specific pathogen directory).
+
+**[Vundle](https://github.com/gmarik/Vundle.vim)**
+
+Add these lines to your `.vimrc` after `call vundle#rc()`:
+```
+Plugin 'bimbalaszlo/vim-eightheader'
+```
+Open vim again, then call `:PluginInstall`

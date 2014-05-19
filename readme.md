@@ -72,9 +72,19 @@ Install
 [Download](https://github.com/BimbaLaszlo/vim-eightheader/archive/master.zip)
 and unzip the subdirectories into `~/.vim`.
 
+Don't forget to regenerate helptags:
+```
+:helptags ~/.vim/doc
+```
+
 **[Pathogen](https://github.com/tpope/vim-pathogen):**
 
 ... into `~/.vim/bundle` (or to your specific pathogen directory).
+
+Don't forget to regenerate helptags:
+```
+:Helptags
+```
 
 **[Vundle](https://github.com/gmarik/Vundle.vim)**:
 

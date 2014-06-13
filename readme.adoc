@@ -2,10 +2,12 @@ EightHeader
 ===========
 Easily create custom (fold)headers, foldtext, toc, etc.
 
-**Please rate if you using it:** http://www.vim.org/scripts/script.php?script_id=4930
+*Please rate if you using it:* http://www.vim.org/scripts/script.php?script_id=4930
 
 To use EightHeader just move the cursor to the line which you want to modify (hereinafter `line`), then call it:
-```
+
+[source]
+----
 EightHeader( length, align, oneline, pattern, marker, str )
 
 length   Length of the header.
@@ -14,82 +16,111 @@ oneline  line and marker in one line, pattern in another.
 pattern  Pattern to fill with.
 marker   Extra content after patternRightEnd.
 str      Replace the content of line with this.
-```
+----
 
 An example with `oneline`:
-```
+
+[source]
+----
 call EightHeader( 78, "center", 1, ["l ", "pat", " r"], " m", "\\=' '.s:str.' '" )
 
 l patpatpatpatpatpatpatpat TEXT IN THE LINE patpatpatpatpatpatpatpat r m
-```
-... and whitout it:
-```
+----
+
+\... and whitout it:
+
+[source]
+----
 call EightHeader( 78, "center", 0, ["l ", "pat", " r"], " m", "" )
 
                               TEXT IN THE LINE                         m
 l patpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpa r
-```
+----
 
-If you don't like the default 'foldtext' you can customize it by setting to
+If you don't like the default `'foldtext'` you can customize it by setting to
 `EightHeaderFolds()`.
 
 For example the closed folds looks like this by default:
-```
+
+[source]
+----
 +-- 45 lines: Fold level one
 +--- 67 lines: Fold level two
-```
+----
+
 If you would like to change it to this kind:
-```
+
+[source]
+----
 Fold level one................45 lines
   Fold level two..............67 lines
-```
-... then you can use this function:
-```
+----
+
+\... then you can use this function:
+
+[source]
+----
 let &foldtext = "EightHeaderFolds( '\\=s:fullwidth-2', 'left', [ repeat( '  ', v:foldlevel - 1 ), '.', '' ], '\\= s:foldlines . \" lines\"', '' )"
-```
+----
+
 An alternative usage for example formating a vimhelp table of contents:
-```
+
+[source]
+----
 Options;options
 Default mappings;maps
   Launch nuclear strike;apocalypse
-```
-... to this:
-```
+----
+
+\... to this:
+
+[source]
+----
 Options........................................................|options|
 Default mappings..................................................|maps|
   Launch nuclear strike.....................................|apocalypse|
-```
+----
+
 Visually select the lines, than:
-```
+
+[source]
+----
 call EightHeader( 78, "left", 1, ".", "\\='|'.matchstr(s:str, ';\\@<=.*').'|'", "\\=matchstr(s:str, '.*;\\@=')" )
-```
+----
 
 Install
 -------
 
-**Manually:**
+*Manually:*
 
-[Download](https://github.com/BimbaLaszlo/vim-eightheader/archive/master.zip)
-and unzip the subdirectories into `~/.vim`.
+https://github.com/BimbaLaszlo/vim-eightheader/archive/master.zip[Download]
+and unzip the subdirectories into '~/.vim'.
 
 Don't forget to regenerate helptags:
-```
+
+[source]
+----
 :helptags ~/.vim/doc
-```
+----
 
-**[Pathogen](https://github.com/tpope/vim-pathogen):**
+*https://github.com/tpope/vim-pathogen[Pathogen]:*
 
-... into `~/.vim/bundle` (or to your specific pathogen directory).
+\... into '~/.vim/bundle' (or to your specific pathogen directory).
 
 Don't forget to regenerate helptags:
-```
+
+[source]
+----
 :Helptags
-```
+----
 
-**[Vundle](https://github.com/gmarik/Vundle.vim)**:
+*https://github.com/gmarik/Vundle.vim[Vundle]:*
 
-Add these lines to your `.vimrc` after `call vundle#rc()`:
-```
+Add these lines to your '.vimrc' after `call vundle#rc()`:
+
+[source]
+----
 Plugin 'bimbalaszlo/vim-eightheader'
-```
+----
+
 Open vim again, then call `:PluginInstall`

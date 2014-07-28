@@ -1,6 +1,8 @@
-EightHeader
-===========
+= EightHeader
+
+// tag::intro[]
 Easily create custom (fold)headers, foldtext, toc, etc.
+// end::intro[]
 
 *Please rate if you using it:* http://www.vim.org/scripts/script.php?script_id=4930
 
@@ -88,8 +90,7 @@ Visually select the lines, than:
 call EightHeader( 78, "left", 1, ".", "\\='|'.matchstr(s:str, ';\\@<=.*').'|'", "\\=matchstr(s:str, '.*;\\@=')" )
 ----
 
-Install
--------
+== Install
 
 *Manually:*
 

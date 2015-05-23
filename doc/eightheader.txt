@@ -1,4 +1,4 @@
-*eightheader.txt*        For Vim version 7.4        Last change: 2014. 05. 16.
+*eightheader.txt*        For Vim version 7.4        Last change: 2015. 05. 23.
 
                                  EIGHTHEADER~
            Easily create custom (fold)headers, foldtext, toc, etc.
@@ -146,6 +146,9 @@ USING EIGHTHEADER                                                *EightHeader*
       let g:EightHeader_comment   = 'call NERDComment( "n", "comment" )'
       let g:EightHeader_uncomment = 'call NERDComment( "n", "uncomment" )'
 <
+      The {firstLine} and {lastLine} variables can be used to pass the
+      linenumbers to the function.
+
       If these are not set, then the script cannot handle comments.
 
       Most of the commenter plugins can't uncomment only one line in a

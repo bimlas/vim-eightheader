@@ -1,7 +1,7 @@
-*eightheader.txt*        For Vim version 7.4        Last change: 2015. 05. 23.
+*eightheader.txt*        For Vim version 7.4        Last change: 2015. 05. 25.
 
                                  EIGHTHEADER~
-           Easily create custom (fold)headers, foldtext, toc, etc.
+              Easily create custom headers, foldtext, toc, etc.
 
                                Git repository:
                 https://github.com/BimbaLaszlo/vim-eightheader
@@ -43,13 +43,13 @@ USING EIGHTHEADER                                                *EightHeader*
     To use |EightHeader| just move the cursor to the line which you want to
     modify (hereinafter {line}), then call it:
 
-      EightHeader( {length}, {align}, {oneline}, {pattern}, {marker}, {str} )
+      EightHeader( {length}, {align}, {oneline}, {decor}, {marker}, {str} )
 
       {length}   Length of the header.
       {align}    Alignment of text.
-      {oneline}  {line} and {marker} in one line, {pattern} in another.
-      {pattern}  Pattern to fill with.
-      {marker}   Extra content after patternRightEnd.
+      {oneline}  {line} and {marker} in one line, {decor} in another.
+      {decor}    Decorator string to fill with.
+      {marker}   Extra content after decotRightEnd.
       {str}      Replace the content of {line} with this.
 
     See |EightHeaderArguments| for detailed list.
@@ -100,13 +100,13 @@ USING EIGHTHEADER                                                *EightHeader*
       text and {marker} will be on the same line, the others will be in
       another.
 
-    {pattern}
+    {decor}
     Possible values: String, or List of 3 Strings
 
-      The pattern that fills the gap between elements. If it's a String, then
-      there's nothing special, if a List, in that case the first element will
-      be the left end of the header, the second element is the pattern, the
-      third element is the right end before {marker}.
+      The dexorator string that fills the gap between elements. If it's a
+      String, then there's nothing special, if a List, in that case the first
+      element will be the left end of the header, the second element is the
+      decaorator, the third element is the right end before {marker}.
 
     {marker}
     Possible values: String
@@ -169,7 +169,7 @@ CUSTOM FOLDTEXT WITH EIGHTHEADERFOLDS                       *EightHeaderFolds*
     If you don't like the default 'foldtext' you can customize it by setting
     to EightHeaderFolds().
 
-      EightHeaderFolds( {length}, {align}, {pattern}, {marker}, {str} )
+      EightHeaderFolds( {length}, {align}, {decor}, {marker}, {str} )
 
     The arguments are the same as |EightHeader| has. There are some additional
     variables you can use:
@@ -205,7 +205,7 @@ CALLING IT FROM SCRIPT                                       *EightHeaderCall*
 
     The EightHeaderCall() formats a string.
 
-      EightHeaderCall( {line}, {length}, {align}, {pattern}, {marker}, {str} )
+      EightHeaderCall( {line}, {length}, {align}, {decor}, {marker}, {str} )
 
     The arguments are the same as |EightHeader| has, the {line} is the
     string that you want to format. The function returns the formated string

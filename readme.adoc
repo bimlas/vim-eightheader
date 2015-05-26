@@ -1,7 +1,7 @@
 = EightHeader
 
 // tag::intro[]
-Easily create custom (fold)headers, foldtext, toc, etc.
+Easily create custom headlines, foldtext, toc, etc.
 // end::intro[]
 
 *Please rate if you using it:* http://www.vim.org/scripts/script.php?script_id=4930

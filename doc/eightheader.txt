@@ -1,4 +1,4 @@
-* *eightheader.txt*       For Vim version 7.4       Last change: 2015. 05. 26.
+*eightheader.txt*        For Vim version 7.4        Last change: 2015. 05. 26.
 
                                  EIGHTHEADER~
               Easily create custom headers, foldtext, toc, etc.
@@ -9,7 +9,7 @@
                          Please rate if you using it:
              http://www.vim.org/scripts/script.php?script_id=4930
 
-=========== BimbaLaszlo (.github.io|gmail.com) =========== 2015.05.26 07:45 ==
+======================= BimbaLaszlo(.co.nr|gmail.com) ========================
 
     Copyright: (c) 2014 by BimbaLaszlo
               The VIM LICENSE applies to eightheader.vim and eightheader.txt
@@ -57,14 +57,15 @@ USING EIGHTHEADER                                                *EightHeader*
     It handles the commented lines if the g:EightHeader_comment and
     g:EightHeader_uncomment set (see |EightHeaderOptions|).
 
-    An example with {oneline} (for "s:str" see |EightHeaderVars|): >
+    An example with {oneline} set to true (1) ("s:str" means the original
+    line, see |EightHeaderVars| for details): >
 
       call EightHeader( 78, 'center', 1, ['l ', 'decor', ' r'], ' m',
       \ '\=" ".s:str." "' )
 
       l decordecordecordecordeco TEXT IN THE LINE cordecordecordecordecord r m
 <
-    ... and whitout it: >
+    ... and false (0): >
 
       call EightHeader( 78, 'center', 0, ['l ', 'decor', ' r'], ' m', '' )
 

@@ -10,33 +10,34 @@ To use EightHeader just move the cursor to the line which you want to modify (he
 
 [source]
 ----
-EightHeader( length, align, oneline, pattern, marker, str )
+EightHeader( {length}, {align}, {oneline}, {decor}, {marker}, {str} )
 
-length   Length of the header.
-align    Alignment of text.
-oneline  line and marker in one line, pattern in another.
-pattern  Pattern to fill with.
-marker   Extra content after patternRightEnd.
-str      Replace the content of line with this.
+{length}   Length of the header.
+{align}    Alignment of text.
+{oneline}  If false, then underline the {line} with {decor}.
+{decor}    Decorator text to fill with.
+{marker}   Extra content after decotRightEnd.
+{str}      Replace the content of {line} with this.
 ----
 
-An example with `oneline`:
+An example with {oneline} set to true (1) (`s:str` means the original line,
+see `EightHeaderVars` for details):
 
 [source]
 ----
-call EightHeader( 78, "center", 1, ["l ", "pat", " r"], " m", "\\=' '.s:str.' '" )
+call EightHeader( 78, 'center', 1, ['l ', 'decor', ' r'], ' m', '\=" ".s:str." "' )
 
-l patpatpatpatpatpatpatpat TEXT IN THE LINE patpatpatpatpatpatpatpat r m
+l decordecordecordecordeco TEXT IN THE LINE cordecordecordecordecord r m
 ----
 
-\... and whitout it:
+\... and false (0):
 
 [source]
 ----
-call EightHeader( 78, "center", 0, ["l ", "pat", " r"], " m", "" )
+call EightHeader( 78, 'center', 0, ['l ', 'decor', ' r'], ' m', '' )
 
-                              TEXT IN THE LINE                         m
-l patpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpa r
+                            TEXT IN THE LINE                            m
+l decordecordecordecordecordecordecordecordecordecordecordecordecordec r
 ----
 
 If you don't like the default `'foldtext'` you can customize it by setting to

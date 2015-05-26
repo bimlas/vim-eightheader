@@ -1,6 +1,6 @@
-" eightheader.vim
-" TODO:
-" * pattern -> decor
+" eightheader.vim: Easily create custom headers, foldtext, toc, etc.
+"
+" ========== BimbaLaszlo (.github.io|gmail.com) ========== 2015.05.26 07:53 ==
 
 "                             SCRIPT FUNCTIONS                            {{{1
 " ============================================================================
@@ -44,21 +44,21 @@ function! s:Value( var )
   endif
 endfunction
 
-"                                 PATTERN                                 {{{2
+"                                 DECOR                                 {{{2
 " ____________________________________________________________________________
 "
-" Repeating a pattern, then returns with it.
+" Repeating the decorator, then returns with it.
 "
 " __ ARGUMENTS __________________________
 "
-"   start     Number  Index of first character in pattern.
-"   len       Number  Length of generated pattern.
-"   pattern   String  Pattern that we want to repeat.
+"   start     Number  Index of first character in decorator.
+"   len       Number  Length of generated decorator.
+"   decor     String  Decorator that we want to repeat.
 "
 " FIXME:
 "   strpart() not works with multibyte characters.
 
-function! s:Pattern( start, len, pattern )
+function! s:Decor( start, len, decor )
 
   if ! a:len
     return ''
@@ -66,21 +66,21 @@ function! s:Pattern( start, len, pattern )
 
   let retstr     = ''
   let len        = a:len
-  let patternLen = strdisplaywidth( a:pattern )
+  let decorLen = strdisplaywidth( a:decor )
 
-  let index  = a:start % patternLen
+  let index  = a:start % decorLen
 
-  if patternLen >= (len + index)
-    return strpart( a:pattern, index, len )
+  if decorLen >= (len + index)
+    return strpart( a:decor, index, len )
   else
-    let retstr .= strpart( a:pattern, index, patternLen - index )
-    let len    -= patternLen - index
+    let retstr .= strpart( a:decor, index, decorLen - index )
+    let len    -= decorLen - index
   endif
 
-  let retstr .= repeat( a:pattern, len / patternLen )
+  let retstr .= repeat( a:decor, len / decorLen )
 
-  if len % patternLen
-    let retstr .= strpart( a:pattern, 0, len % patternLen )
+  if len % decorLen
+    let retstr .= strpart( a:decor, 0, len % decorLen )
   endif
 
   return retstr
@@ -107,7 +107,7 @@ endfunction
 "   s:indentLen   Number    Displaywidth of s:indent.
 "
 
-function! s:ReadArgs( line, length, align, pattern, marker, str )
+function! s:ReadArgs( line, length, align, decor, marker, str )
 
   let args = {}
 
@@ -134,21 +134,21 @@ function! s:ReadArgs( line, length, align, pattern, marker, str )
     return ''
   endif
 
-  if ! ((s:IsList( a:pattern ) && (len( a:pattern ) == 3)) || s:IsString( a:pattern ))
-    call s:Error( '{pattern} have to be string or list with 3 items: ' . string( a:pattern ) )
+  if ! ((s:IsList( a:decor ) && (len( a:decor ) == 3)) || s:IsString( a:decor ))
+    call s:Error( '{decor} have to be string or list with 3 items: ' . string( a:decor ) )
     return ''
   endif
 
-  " Evaulating pattern and str.
+  " Evaulating decor and str.
 
-  if s:IsList( a:pattern )
-    let args['patternLeftEnd']  = s:Value( a:pattern[0] )
-    let args['pattern']         = s:Value( a:pattern[1] )
-    let args['patternRightEnd'] = s:Value( a:pattern[2] )
+  if s:IsList( a:decor )
+    let args['decorLeftEnd']  = s:Value( a:decor[0] )
+    let args['decor']         = s:Value( a:decor[1] )
+    let args['decorRightEnd'] = s:Value( a:decor[2] )
   else
-    let args['patternLeftEnd']  = ''
-    let args['pattern']         = s:Value( a:pattern )
-    let args['patternRightEnd'] = ''
+    let args['decorLeftEnd']  = ''
+    let args['decor']         = s:Value( a:decor )
+    let args['decorRightEnd'] = ''
   endif
 
   if len( a:str )
@@ -179,40 +179,40 @@ function! s:Header( args )
 
   let length -= s:strLen
 
-  let length -= strdisplaywidth( a:args['patternLeftEnd'] . a:args['patternRightEnd'] )
+  let length -= strdisplaywidth( a:args['decorLeftEnd'] . a:args['decorRightEnd'] )
 
   if len( a:args['marker'] )
     let length -= strdisplaywidth( a:args['marker'] )
   endif
 
   if     a:args['align'] == 'left'
-    let patternLeftLen  = 0
-    let patternRightLen = length
+    let decorLeftLen  = 0
+    let decorRightLen = length
   elseif a:args['align'] == 'right'
-    let patternLeftLen  = length
-    let patternRightLen = 0
+    let decorLeftLen  = length
+    let decorRightLen = 0
   elseif a:args['align'] == 'center'
-    let patternLeftLen  = length / 2
-    let patternRightLen = length / 2 + length % 2
+    let decorLeftLen  = length / 2
+    let decorRightLen = length / 2 + length % 2
   endif
 
   " Main work.
 
   let retstr  = s:indent
-  let retstr .= a:args['patternLeftEnd']
+  let retstr .= a:args['decorLeftEnd']
 
-  let retstr .= s:Pattern( 0, patternLeftLen, a:args['pattern'] )
+  let retstr .= s:Decor( 0, decorLeftLen, a:args['decor'] )
 
   if len( s:str )
     let retstr .= s:str
   endif
 
-  let retstr .= s:Pattern( patternLeftLen + s:strLen , patternRightLen, a:args['pattern'] )
+  let retstr .= s:Decor( decorLeftLen + s:strLen , decorRightLen, a:args['decor'] )
 
-  let retstr .= a:args['patternRightEnd']
+  let retstr .= a:args['decorRightEnd']
   let retstr .= a:args['marker']
 
-  " Remove the trailing spaces. (for example if the pattern is ' ' and no
+  " Remove the trailing spaces. (for example if the decor is ' ' and no
   " marker set)
   "
   " FIXME:
@@ -230,17 +230,17 @@ endfunction
 "
 " __ ARGUMENTS __________________________
 "
-"   length    Value   Length of the header.
-"   align     Value   Alignment of text.
-"   oneline   Number  {line} and {marker} in one line, {pattern} in another.
-"   pattern   Value   Pattern to fill with.
-"   marker    Value   Extra content after patternRightEnd.
-"   str       Value   Replace the content of {line} with this.
+"   {length}   Length of the header.
+"   {align}    Alignment of text.
+"   {oneline}  If false, then underline the {line} with {decor}.
+"   {decor}    Decorator text to fill with.
+"   {marker}   Extra content after decotRightEnd.
+"   {str}      Replace the content of {line} with this.
 "
 " FIXME:
 "   Check errors before uncommenting.
 
-function! EightHeader( length, align, oneline, pattern, marker, str )
+function! EightHeader( length, align, oneline, decor, marker, str )
 
   " Preparing.
 
@@ -262,7 +262,7 @@ function! EightHeader( length, align, oneline, pattern, marker, str )
 
   " Evaulating arguments.
 
-  let args = s:ReadArgs( line, a:length, a:align, a:pattern, a:marker, a:str )
+  let args = s:ReadArgs( line, a:length, a:align, a:decor, a:marker, a:str )
   if ! len( args )
     return -1
   endif
@@ -274,8 +274,8 @@ function! EightHeader( length, align, oneline, pattern, marker, str )
   if a:oneline
     call setline( '.', s:Header( args ) )
   else
-    call setline( '.', s:Header( s:ReadArgs( line,     args['length'], a:align, ' ',       a:marker, a:str ) ) )
-    call append(  '.', s:Header( s:ReadArgs( s:indent, args['length'], a:align, a:pattern, '',       ''    ) ) )
+    call setline( '.', s:Header( s:ReadArgs( line,     args['length'], a:align, ' ',     a:marker, a:str ) ) )
+    call append(  '.', s:Header( s:ReadArgs( s:indent, args['length'], a:align, a:decor, '',       ''    ) ) )
     let lastLine += 1
   endif
 
@@ -297,14 +297,14 @@ endfunction
 "
 " Returning whith the modified foldheader.
 
-function! EightHeaderFolds( length, align, pattern, marker, str )
+function! EightHeaderFolds( length, align, decor, marker, str )
 
   let s:fullwidth = winwidth( 0 ) - (&number ? &numberwidth : 0) - &foldcolumn
   let s:foldlines = v:foldend - v:foldstart + 1
 
   " Geting the text of foldheader from the original foldtext().
 
-  let args = s:ReadArgs( substitute( foldtext(), '^.\{-}: \|[[:blank:]]\+$', '', 'g' ), a:length, a:align, a:pattern, a:marker, a:str )
+  let args = s:ReadArgs( substitute( foldtext(), '^.\{-}: \|[[:blank:]]\+$', '', 'g' ), a:length, a:align, a:decor, a:marker, a:str )
   if ! len( args )
     return -1
   endif
@@ -318,9 +318,9 @@ endfunction
 " Returning whith the modified {line} or -1 if there was an error. Does not
 " commenting! See EightHeader() for arguments.
 
-function! EightHeaderCall( line, length, align, pattern, marker, str )
+function! EightHeaderCall( line, length, align, decor, marker, str )
 
-  let args = s:ReadArgs( a:line, a:length, a:align, a:pattern, a:marker, a:str )
+  let args = s:ReadArgs( a:line, a:length, a:align, a:decor, a:marker, a:str )
   if ! len( args )
     return -1
   endif

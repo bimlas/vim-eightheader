@@ -1,4 +1,4 @@
-*eightheader.txt*        For Vim version 7.4        Last change: 2015. 05. 25.
+* *eightheader.txt*       For Vim version 7.4       Last change: 2015. 05. 26.
 
                                  EIGHTHEADER~
               Easily create custom headers, foldtext, toc, etc.
@@ -9,7 +9,7 @@
                          Please rate if you using it:
              http://www.vim.org/scripts/script.php?script_id=4930
 
-======================= BimbaLaszlo(.co.nr|gmail.com) ========================
+=========== BimbaLaszlo (.github.io|gmail.com) =========== 2015.05.26 07:45 ==
 
     Copyright: (c) 2014 by BimbaLaszlo
               The VIM LICENSE applies to eightheader.vim and eightheader.txt
@@ -47,8 +47,8 @@ USING EIGHTHEADER                                                *EightHeader*
 
       {length}   Length of the header.
       {align}    Alignment of text.
-      {oneline}  {line} and {marker} in one line, {decor} in another.
-      {decor}    Decorator string to fill with.
+      {oneline}  If false, then underline the {line} with {decor}.
+      {decor}    Decorator text to fill with.
       {marker}   Extra content after decotRightEnd.
       {str}      Replace the content of {line} with this.
 
@@ -57,19 +57,19 @@ USING EIGHTHEADER                                                *EightHeader*
     It handles the commented lines if the g:EightHeader_comment and
     g:EightHeader_uncomment set (see |EightHeaderOptions|).
 
-    An example with {oneline}: >
+    An example with {oneline} (for "s:str" see |EightHeaderVars|): >
 
-      call EightHeader( 78, 'center', 1, ['l ', 'pat', ' r'], ' m',
+      call EightHeader( 78, 'center', 1, ['l ', 'decor', ' r'], ' m',
       \ '\=" ".s:str." "' )
 
-      l patpatpatpatpatpatpatpat TEXT IN THE LINE patpatpatpatpatpatpatpat r m
+      l decordecordecordecordeco TEXT IN THE LINE cordecordecordecordecord r m
 <
     ... and whitout it: >
 
-      call EightHeader( 78, 'center', 0, ['l ', 'pat', ' r'], ' m', '' )
+      call EightHeader( 78, 'center', 0, ['l ', 'decor', ' r'], ' m', '' )
 
                                  TEXT IN THE LINE                            m
-      l patpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpatpa r
+      l decordecordecordecordecordecordecordecordecordecordecordecordecordec r
 <
     You can do |mapping|s or |command|s to your favourite header functions to
     simplify the usage. For example: >
@@ -94,19 +94,20 @@ USING EIGHTHEADER                                                *EightHeader*
       The alignment of the text.
 
     {oneline}
-    Possible values: 0, 1
+    Possible values: Bool (0, or 1)
 
-      If 1, then all parts of the header will be in one line, otherwise the
-      text and {marker} will be on the same line, the others will be in
-      another.
+      If 1, then all parts of the header will be printed on one line,
+      otherwise the text and {marker} will be on the same line, the others
+      will be under those.
 
     {decor}
     Possible values: String, or List of 3 Strings
 
-      The dexorator string that fills the gap between elements. If it's a
-      String, then there's nothing special, if a List, in that case the first
-      element will be the left end of the header, the second element is the
-      decaorator, the third element is the right end before {marker}.
+      The decorator text that fills the gap between elements. If it's a
+      String, then there's nothing special, if a List of 3 Strings, in that
+      case the first element will be the left end of the header, the second
+      element is the decaorator, the third element is the right end before
+      {marker}.
 
     {marker}
     Possible values: String

@@ -1,10 +1,10 @@
 = EightHeader
 
-// tag::intro[]
 Easily create custom headlines, foldtext, toc, etc.
-// end::intro[]
 
-*Please rate if you using it:* http://www.vim.org/scripts/script.php?script_id=4930
+* https://gitlab.com/bimlas/vim-eightheader (main repository)
+* https://github.com/bimlas/vim-eightheader (mirror, please star if you like it)
+* http://www.vim.org/scripts/script.php?script_id=4930 (please rate if you using it)
 
 To use EightHeader just move the cursor to the line which you want to modify (hereinafter `line`), then call it:
 
@@ -95,7 +95,7 @@ call EightHeader( 78, "left", 1, ".", "\\='|'.matchstr(s:str, ';\\@<=.*').'|'", 
 
 *Manually:*
 
-https://github.com/BimbaLaszlo/vim-eightheader/archive/master.zip[Download]
+https://github.com/bimlas/vim-eightheader/archive/master.zip[Download]
 and unzip the subdirectories into '~/.vim'.
 
 Don't forget to regenerate helptags:
@@ -122,7 +122,7 @@ Add these lines to your '.vimrc' after `call vundle#rc()`:
 
 [source]
 ----
-Plugin 'bimbalaszlo/vim-eightheader'
+Plugin 'bimlas/vim-eightheader'
 ----
 
 Open vim again, then call `:PluginInstall`

@@ -1,17 +1,20 @@
-*eightheader.txt*        For Vim version 7.4        Last change: 2015. 05. 26.
+*eightheader.txt*          For Vim version 7.4      Last change: 2019. 04. 09.
 
                                  EIGHTHEADER~
               Easily create custom headers, foldtext, toc, etc.
 
-                               Git repository:
-                https://github.com/BimbaLaszlo/vim-eightheader
+                              Git repositories:
+                  https://gitlab.com/bimlas/vim-eightheader
+                              (main repository)
+                  https://github.com/bimlas/vim-eightheader
+                     (mirror, please star if you like it)
 
                          Please rate if you using it:
              http://www.vim.org/scripts/script.php?script_id=4930
 
-======================= BimbaLaszlo(.co.nr|gmail.com) ========================
+==============================================================================
 
-    Copyright: (c) 2014 by BimbaLaszlo
+    Copyright: (c) 2014 by bimlas
               The VIM LICENSE applies to eightheader.vim and eightheader.txt
               (see |copyright|) except use 'EightHeader' instead of 'Vim'
               NO WARRANTY, EXPRESS OR IMPLIED.  USE AT-YOUR-OWN-RISK.

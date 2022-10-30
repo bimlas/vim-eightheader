@@ -322,7 +322,7 @@ function! EightHeaderFolds( length, align, decor, marker, str )
       for l:sign in sign_getplaced(bufnr(),{'group':'*'})[0].signs
         let lnum = l:sign.lnum
         let signs = len(sign_getplaced(bufnr(),{'group':'*', 'lnum':lnum})[0].signs)
-        let s:signwidth = (signs > signwidth ? signs : signwidth)
+        let s:signwidth = (signs > s:signwidth ? signs : s:signwidth)
       endfor
     endif
     let s:signwidth *= 2   " each signcolumn is 2-char wide

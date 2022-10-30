@@ -302,7 +302,7 @@ function! EightHeaderFolds( length, align, decor, marker, str )
   let s:width = winwidth(0)
   let s:numberwidth = max([&numberwidth, strlen(line('$')) + 1])
   let s:numwidth = (&number || &relativenumber) ? s:numberwidth : 0
-  let s:foldwidth = &foldcolumn
+  let s:foldwidth = str2nr(matchstr(&foldcolumn, '\d\+$'))
 
   if &signcolumn == 'yes'
     let s:signwidth = 2

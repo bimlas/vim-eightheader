@@ -299,7 +299,8 @@ endfunction
 
 function! EightHeaderFolds( length, align, decor, marker, str )
 
-  let s:fullwidth = winwidth( 0 ) - (&number ? &numberwidth : 0) - &foldcolumn
+  let s:numberwidthReal = strlen(string(line('$'))) + 1
+  let s:fullwidth = winwidth( 0 ) - (&number ? s:numberwidthReal : 0) - &foldcolumn
   let s:foldlines = v:foldend - v:foldstart + 1
 
   " Geting the text of foldheader from the original foldtext().

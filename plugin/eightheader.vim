@@ -299,8 +299,38 @@ endfunction
 
 function! EightHeaderFolds( length, align, decor, marker, str )
 
-  let s:numberwidthReal = strlen(string(line('$'))) + 1
-  let s:fullwidth = winwidth( 0 ) - (&number ? s:numberwidthReal : 0) - &foldcolumn
+  let s:width = winwidth(0)
+  let s:numberwidth = max([&numberwidth, strlen(line('$')) + 1])
+  let s:numwidth = (&number || &relativenumber) ? s:numberwidth : 0
+  let s:foldwidth = &foldcolumn
+
+  if &signcolumn == 'yes'
+    let s:signwidth = 2
+  elseif &signcolumn =~ 'yes'
+    let s:signwidth = &signcolumn
+    let s:signwidth = split(s:signwidth, ':')[1]
+    let s:signwidth *= 2  " each signcolumn is 2-char wide
+  elseif &signcolumn == 'auto'
+    let supports_sign_groups = has('nvim-0.4.2') || has('patch-8.1.614')
+    let s:signlist = execute(printf('sign place ' . (supports_sign_groups ? 'group=* ' : '') . 'buffer=%d', bufnr('')))
+    let s:signlist = split(s:signlist, "\n")
+    let s:signwidth = len(s:signlist) > 2 ? 2 : 0
+  elseif &signcolumn =~ 'auto'
+    let s:signwidth = 0
+    if len(sign_getplaced(bufnr(),{'group':'*'})[0].signs)
+      let s:signwidth = 0
+      for l:sign in sign_getplaced(bufnr(),{'group':'*'})[0].signs
+        let lnum = l:sign.lnum
+        let signs = len(sign_getplaced(bufnr(),{'group':'*', 'lnum':lnum})[0].signs)
+        let s:signwidth = (signs > signwidth ? signs : signwidth)
+      endfor
+    endif
+    let s:signwidth *= 2   " each signcolumn is 2-char wide
+  else
+    let s:signwidth = 0
+  endif
+
+  let s:fullwidth = s:width - s:numwidth - s:foldwidth - s:signwidth
   let s:foldlines = v:foldend - v:foldstart + 1
 
   " Geting the text of foldheader from the original foldtext().

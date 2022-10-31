@@ -299,38 +299,38 @@ endfunction
 
 function! EightHeaderFolds( length, align, decor, marker, str )
 
-  let s:width = winwidth(0)
-  let s:numberwidth = max([&numberwidth, strlen(line('$')) + 1])
-  let s:numwidth = (&number || &relativenumber) ? s:numberwidth : 0
-  let s:foldwidth = str2nr(matchstr(&foldcolumn, '\d\+$'))
+  let l:width = winwidth(0)
+  let l:numberwidth = max([&numberwidth, strlen(line('$')) + 1])
+  let l:numwidth = (&number || &relativenumber) ? l:numberwidth : 0
+  let l:foldwidth = str2nr(matchstr(&foldcolumn, '\d\+$'))
 
   if &signcolumn == 'yes'
-    let s:signwidth = 2
+    let l:signwidth = 2
   elseif &signcolumn =~ 'yes'
-    let s:signwidth = &signcolumn
-    let s:signwidth = split(s:signwidth, ':')[1]
-    let s:signwidth *= 2  " each signcolumn is 2-char wide
+    let l:signwidth = &signcolumn
+    let l:signwidth = split(l:signwidth, ':')[1]
+    let l:signwidth *= 2  " each signcolumn is 2-char wide
   elseif &signcolumn == 'auto'
     let supports_sign_groups = has('nvim-0.4.2') || has('patch-8.1.614')
-    let s:signlist = execute(printf('sign place ' . (supports_sign_groups ? 'group=* ' : '') . 'buffer=%d', bufnr('')))
-    let s:signlist = split(s:signlist, "\n")
-    let s:signwidth = len(s:signlist) > 2 ? 2 : 0
+    let l:signlist = execute(printf('sign place ' . (supports_sign_groups ? 'group=* ' : '') . 'buffer=%d', bufnr('')))
+    let l:signlist = split(l:signlist, "\n")
+    let l:signwidth = len(l:signlist) > 2 ? 2 : 0
   elseif &signcolumn =~ 'auto'
-    let s:signwidth = 0
+    let l:signwidth = 0
     if len(sign_getplaced(bufnr(),{'group':'*'})[0].signs)
-      let s:signwidth = 0
+      let l:signwidth = 0
       for l:sign in sign_getplaced(bufnr(),{'group':'*'})[0].signs
         let lnum = l:sign.lnum
         let signs = len(sign_getplaced(bufnr(),{'group':'*', 'lnum':lnum})[0].signs)
-        let s:signwidth = (signs > s:signwidth ? signs : s:signwidth)
+        let l:signwidth = (signs > l:signwidth ? signs : l:signwidth)
       endfor
     endif
-    let s:signwidth *= 2   " each signcolumn is 2-char wide
+    let l:signwidth *= 2   " each signcolumn is 2-char wide
   else
-    let s:signwidth = 0
+    let l:signwidth = 0
   endif
 
-  let s:fullwidth = s:width - s:numwidth - s:foldwidth - s:signwidth
+  let s:fullwidth = l:width - l:numwidth - l:foldwidth - l:signwidth
   let s:foldlines = v:foldend - v:foldstart + 1
 
   " Geting the text of foldheader from the original foldtext().

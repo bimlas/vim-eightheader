@@ -2,8 +2,7 @@
 
 Easily create custom headlines, foldtext, toc, etc.
 
-* https://gitlab.com/bimlas/vim-eightheader (main repository)
-* https://github.com/bimlas/vim-eightheader (mirror, please star if you like it)
+* https://github.com/bimlas/vim-eightheader (please star if you like it)
 * http://www.vim.org/scripts/script.php?script_id=4930 (please rate if you using it)
 
 To use EightHeader just move the cursor to the line which you want to modify (hereinafter `line`), then call it:

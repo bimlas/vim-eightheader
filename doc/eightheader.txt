@@ -3,11 +3,9 @@
                                  EIGHTHEADER~
               Easily create custom headers, foldtext, toc, etc.
 
-                              Git repositories:
-                  https://gitlab.com/bimlas/vim-eightheader
-                              (main repository)
+                              Git repository:
                   https://github.com/bimlas/vim-eightheader
-                     (mirror, please star if you like it)
+                         (please star if you like it)
 
                          Please rate if you using it:
              http://www.vim.org/scripts/script.php?script_id=4930
